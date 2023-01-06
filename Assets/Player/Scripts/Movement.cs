@@ -44,7 +44,7 @@ public class Movement : MonoBehaviour
     {
         Move();
         Jump();
-        CheckFlip();
+        //CheckFlip();
     }
 
     void Move()
@@ -61,6 +61,7 @@ public class Movement : MonoBehaviour
             rb.velocity = new Vector2(rb.velocity.x, jumpheight);
         }
     }
+    /*
     private void CheckFlip()
     {
         if(movedirectionx == 1f && !facingright)
@@ -80,6 +81,7 @@ public class Movement : MonoBehaviour
 
         facingright = !facingright;
     }
+    */
     public bool GetFacingRight()
     {
         return facingright;

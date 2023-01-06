@@ -2,41 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
-public class AimController : MonoBehaviour
+public class Aimcontroller : MonoBehaviour
 {
-    [SerializeField] private GunScriptableObject gundata;
+    [SerializeField] private GeneralInputActions inputactions;
+    private InputAction look;
 
-    private GeneralInputActions inputactions;
-    private InputAction zoom;
-
-    private Camera cam;
+    [SerializeField] private Transform guntransform;
 
     private void Awake()
     {
         inputactions = new GeneralInputActions();
-        zoom = inputactions.Player.Zoom;
-        cam = GetComponentInChildren<Camera>();
+        look = inputactions.Player.Look;
     }
     private void OnEnable()
     {
-        zoom.Enable();
+        look.Enable();
     }
     private void OnDisable()
     {
-        zoom.Disable();
+        look.Disable();
     }
     private void Update()
     {
-        if (zoom.IsPressed())
-        {
-            //zoom into the gun and let it aim
-            GunFollowMouse();
-        }
-    }
-
-    private void GunFollowMouse()
-    {
-        //gun follows the mouse around the player so you can aim and shoot
+        //get mouse pos
+        Vector3 mouseposition = Mouse.current.position.ReadValue();
+        mouseposition.z = transform.position.z;
+        //get mouse pos in world
+        Vector3 target = Camera.main.ScreenToWorldPoint(mouseposition);
+        //rotate the gun
+        Vector3 difference =  target - guntransform.transform.position;
+        float rotationz = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
+        guntransform.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationz);
     }
 }
