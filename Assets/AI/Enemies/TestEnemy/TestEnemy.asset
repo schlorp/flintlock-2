@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: TestEnemy
   health: 100
+  damage: 25
+  speed: 10
+  enemyType: 0
