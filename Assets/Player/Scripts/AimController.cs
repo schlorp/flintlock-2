@@ -5,9 +5,8 @@ using UnityEngine.InputSystem;
 public class Aimcontroller : MonoBehaviour
 {
     [SerializeField] private GeneralInputActions inputactions;
+    //[SerializeField] private Transform guntransform;
     private InputAction look;
-
-    [SerializeField] private Transform guntransform;
 
     private void Awake()
     {
@@ -24,14 +23,20 @@ public class Aimcontroller : MonoBehaviour
     }
     private void Update()
     {
-        //get mouse pos
         Vector3 mouseposition = Mouse.current.position.ReadValue();
         mouseposition.z = transform.position.z;
-        //get mouse pos in world
+
         Vector3 target = Camera.main.ScreenToWorldPoint(mouseposition);
-        //rotate the gun
-        Vector3 difference =  target - guntransform.transform.position;
+
+        Vector3 difference =  target - transform.position;
         float rotationz = Mathf.Atan2(difference.y, difference.x) * Mathf.Rad2Deg;
-        guntransform.transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationz);
+        transform.rotation = Quaternion.Euler(0.0f, 0.0f, rotationz);
+        //guntransform.rotation = Quaternion.Euler(guntransform.rotation.y, guntransform.rotation.x, transform.rotation.z);
+
+        /*
+        Vector3 rotation = mouseposition - transform.position;
+        float rotationz = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0,0,rotationz);
+        */
     }
 }
