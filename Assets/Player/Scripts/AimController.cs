@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class Aimcontroller : MonoBehaviour
+public class AimController : MonoBehaviour
 {
     [SerializeField] private GeneralInputActions inputactions;
     //[SerializeField] private Transform guntransform;
