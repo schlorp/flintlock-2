@@ -12,14 +12,31 @@ public class EnemyController : MonoBehaviour
     private float speed;
 
     private EnemyType enemyType;
+    private Animator animator;
+
 
     public void Awake()
     {
-        //setting data
+        //setting self up
         health = data.health;
         damage = data.damage;
         attackspeed = data.attackspeed;
         speed = data.speed;
         enemyType = data.enemyType;
+
+        animator = GetComponent<Animator>();
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            animator.SetBool("Jump", true);
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            animator.SetBool("Jump", false);
+        }
+
+    }
+
 }
